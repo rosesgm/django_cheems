@@ -1,0 +1,213 @@
+:root {
+    --paper: #efe8d8;
+    --paper-line: rgba(60, 50, 30, 0.07);
+    --ink: #16130e;
+    --ink-soft: #6b6255;
+    --sheet: #fbf8f1;
+    --safety: #f2b705;
+    --stamp-admin: #c8102e;
+    --stamp-oper: #1f4fbf;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    color: var(--ink);
+    background-color: var(--paper);
+    background-image:
+        linear-gradient(var(--paper-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+/* Franja de seguridad */
+.hazard {
+    height: 14px;
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--safety) 0 18px,
+        var(--ink) 18px 36px
+    );
+}
+
+.page-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 16px 64px;
+}
+
+/* Encabezado tipo formulario */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid var(--ink);
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--safety);
+    padding: 4px 10px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    margin: 0;
+    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.6rem, 7vw, 4rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+}
+
+h1 span {
+    display: block;
+    color: var(--ink-soft);
+    font-weight: 600;
+    font-size: 0.45em;
+    letter-spacing: 0.04em;
+    margin-top: 8px;
+}
+
+.stub {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 0;
+    border: 2px solid var(--ink);
+    background: var(--sheet);
+    font-size: 0.8rem;
+}
+
+.stub dt,
+.stub dd {
+    margin: 0;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--ink);
+}
+
+.stub dt {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-right: 1px solid var(--ink);
+    color: var(--ink-soft);
+}
+
+.stub dd { font-weight: 600; text-align: right; }
+
+.stub dt:nth-last-of-type(1),
+.stub dd:nth-last-of-type(1) { border-bottom: none; }
+
+/* Hoja de la tabla */
+.sheet {
+    background: var(--sheet);
+    border: 2px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+    overflow-x: auto;
+}
+
+.table-user {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 560px;
+}
+
+.table-user th {
+    text-align: left;
+    background: var(--ink);
+    color: var(--safety);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 12px 18px;
+}
+
+.table-user td {
+    padding: 18px;
+    border-bottom: 1px dashed rgba(22, 19, 14, 0.35);
+    vertical-align: middle;
+}
+
+.table-user tbody tr:last-child td { border-bottom: none; }
+
+.table-user tbody tr { transition: background 0.15s; }
+
+.table-user tbody tr:hover { background: rgba(242, 183, 5, 0.14); }
+
+.folio {
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    width: 90px;
+    white-space: nowrap;
+}
+
+.name {
+    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.account { color: var(--ink-soft); }
+
+/* Perfil como sello de goma */
+.stamp {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 2.5px solid currentColor;
+    border-radius: 4px;
+    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transform: rotate(-4deg);
+    opacity: 0.85;
+    mix-blend-mode: multiply;
+}
+
+.table-user tbody tr:nth-child(even) .stamp { transform: rotate(3deg); }
+
+.stamp-administrador { color: var(--stamp-admin); }
+.stamp-operador { color: var(--stamp-oper); }
+
+.empty {
+    text-align: center;
+    color: var(--ink-soft);
+    padding: 48px 18px !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.page-footer {
+    margin-top: 28px;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.page-footer::before,
+.page-footer::after {
+    content: "";
+    flex: 1;
+    border-top: 1px dashed var(--ink-soft);
+}

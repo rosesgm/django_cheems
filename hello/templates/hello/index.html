@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Órdenes de Trabajo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'hello/css/styles.css' %}">
+</head>
+<body>
+    <div class="hazard"></div>
+
+    <main class="page-container">
+        <header class="page-header">
+            <div>
+                <span class="eyebrow">Caracol · Taller</span>
+                <h1>Órdenes de trabajo<span>Consulta de usuarios</span></h1>
+            </div>
+            <dl class="stub">
+                <dt>Fecha</dt>
+                <dd>{% now "d/m/Y" %}</dd>
+                <dt>Registros</dt>
+                <dd>{{ users|length|stringformat:"03d" }}</dd>
+            </dl>
+        </header>
+
+        <section class="sheet">
+            <table class="table-user">
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Nombre</th>
+                        <th>Cuenta</th>
+                        <th>Perfil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td class="folio">US-{{ forloop.counter|stringformat:"03d" }}</td>
+                        <td class="name">{{ user.name }}</td>
+                        <td class="account">{{ user.account }}</td>
+                        <td>
+                            <span class="stamp stamp-{{ user.profile.name|lower }}">
+                                {{ user.profile.name }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="empty">Sin registros</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <p class="page-footer">Fin del reporte</p>
+    </main>
+</body>
+</html>
