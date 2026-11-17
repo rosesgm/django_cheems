@@ -11,11 +11,13 @@ Cada ticket tiene título, descripción, prioridad (alta, media o baja), estado 
 Con el entorno virtual activado:
 
 1. Crear las tablas en tu base de datos:
+
    ```
    python manage.py migrate
    ```
 
 2. (Opcional) Crear un usuario para el panel de administración:
+
    ```
    python manage.py createsuperuser
    ```
