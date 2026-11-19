@@ -103,16 +103,45 @@ def ticket_by_id(request, id):
 
     elif request.method == "PUT":
         if ticket.status == "cerrado":
-            return JsonResponse({
-                "success": False,
-                "message": f"El ticket #{id} está cerrado y no se puede modificar"
-            }, status=409)
+            return JsonResponse(
+                {"success": False, "message": f"El ticket #{ticket.id} está cerrado y no se puede modificar"},
+                status=409
+            )
 
         data = json.loads(request.body)
-        ticket.title = data.get("title", ticket.title)
-        ticket.description = data.get("description", ticket.description)
-        ticket.priority = data.get("priority", ticket.priority)
-        ticket.status = data.get("status", ticket.status)
+        title = data.get("title", ticket.title)
+        description = data.get("description", ticket.description)
+        priority = data.get("priority", ticket.priority)
+        status = data.get("status", ticket.status)
+
+        if not title or len(title.strip()) < 5:
+            return JsonResponse(
+                {"success": False, "message": "El título debe tener al menos 5 caracteres"},
+                status=400
+            )
+
+        if not description or not description.strip():
+            return JsonResponse(
+                {"success": False, "message": "La descripción no puede estar vacía"},
+                status=400
+            )
+
+        if priority not in ["alta", "media", "baja"]:
+            return JsonResponse(
+                {"success": False, "message": "La prioridad debe ser alta, media o baja"},
+                status=400
+            )
+
+        if status not in ["abierto", "en_progreso", "cerrado"]:
+            return JsonResponse(
+                {"success": False, "message": "El estado debe ser abierto, en_progreso o cerrado"},
+                status=400
+            )
+
+        ticket.title = title
+        ticket.description = description
+        ticket.priority = priority
+        ticket.status = status
         ticket.save()
 
         return JsonResponse({
